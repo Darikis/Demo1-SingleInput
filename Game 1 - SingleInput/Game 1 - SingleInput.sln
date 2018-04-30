@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game 1 - SingleInput", "Game 1 - SingleInput.csproj", "{CC06AA5B-DA1D-BE16-F933-CECA14302825}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game 1 - SingleInput.Plugins", "Game 1 - SingleInput.Plugins.csproj", "{CCA0C7BD-AE90-13B0-EACB-659BC63EF973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game 1 - SingleInput.Editor.Plugins", "Game 1 - SingleInput.Editor.Plugins.csproj", "{1263517F-4D44-8092-298B-D21A7E8D2878}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{CC06AA5B-DA1D-BE16-F933-CECA14302825}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC06AA5B-DA1D-BE16-F933-CECA14302825}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC06AA5B-DA1D-BE16-F933-CECA14302825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCA0C7BD-AE90-13B0-EACB-659BC63EF973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA0C7BD-AE90-13B0-EACB-659BC63EF973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA0C7BD-AE90-13B0-EACB-659BC63EF973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA0C7BD-AE90-13B0-EACB-659BC63EF973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1263517F-4D44-8092-298B-D21A7E8D2878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1263517F-4D44-8092-298B-D21A7E8D2878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1263517F-4D44-8092-298B-D21A7E8D2878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1263517F-4D44-8092-298B-D21A7E8D2878}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

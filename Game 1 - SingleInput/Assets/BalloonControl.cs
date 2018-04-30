@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,12 +12,15 @@ public class BalloonControl : MonoBehaviour {
     public float Thrust;
     public Rigidbody2D Rigid;
     public Transform Balloon;
-    public float rotationSpeed;
-    public float movementSpeed;
-    public float rotationTime;
+    public float RotateValue;
+    //public float rotationSpeed;
+    //public float movementSpeed;
+    //public float rotationTime;
     public bool Launch;
-    public bool NewRotation;
-    public bool Test = false;
+    public int Direction;
+    public bool ValueNeeded;
+    public float MyY;
+    public bool CanSpin;
 
 
     // Use this for initialization
@@ -25,7 +29,7 @@ public class BalloonControl : MonoBehaviour {
         //Rigid = gameObject.GetComponent<Rigidbody2D>();
         //Invoke("ChangeRotation", rotationTime);
         Launch = false;
-        NewRotation = false;
+        
     }
 
     // Update is called once per frame
@@ -36,7 +40,7 @@ public class BalloonControl : MonoBehaviour {
 
         Vector3 Size = new Vector3(Width, Height, 1f);
         transform.localScale = Size;
-        if (Input.GetKeyDown("g"))
+        if (Input.GetKeyDown("space") && Launch == false)
         {
 
             Thrust = Thrust + ForceRate;
@@ -46,41 +50,68 @@ public class BalloonControl : MonoBehaviour {
         }
         if (Input.GetKeyDown("h"))
         {
-            Rigid.AddForce(transform.up * Thrust, ForceMode2D.Impulse);
+            Rigid.AddRelativeForce(transform.up * Thrust);
             Launch = true;
+            StartCoroutine(Fly(Balloon));
+            CanSpin = true;
         }
-        if (Launch == true)
+
+        if (Input.GetKeyDown("space") && Launch == true)
         {
-
-
-            if (Test == true)
-            {
-                StartCoroutine(Fly(Balloon));
-            }
-                
+            StopAllCoroutines();
+            Rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+            Rigid.AddForce(transform.up * Thrust * 5);
+            Thrust = Thrust - .1f;
+            ValueNeeded = true;
+            CanSpin = false;
         }
-
-
+        if (Input.GetKeyUp("space") && Launch == true)
+        {
+            Rigid.constraints = RigidbodyConstraints2D.None;
+            StartCoroutine(Fly(Balloon));
+            CanSpin = true;
+        }
     }
-        void ChangeRotation()
+    private void FixedUpdate()
+    {
+        if (Launch == true && Thrust > 1)
         {
-            
-            if (Random.value > 0.5f)
-            {
+            Rigid.AddRelativeForce(transform.up * Thrust);
+            //Thrust = Thrust - .05f;
+            StartCoroutine(Fly(Balloon));
                 
-            }
-            Invoke("ChangeRotation", rotationTime);
         }
-
-
+        if (Launch == true && Thrust < .5)
+        {
+            Thrust = 0;
+            
+        }
+    }
         IEnumerator Fly (Transform Balloon)
         {
-        rotationSpeed = Random.Range(-360f, 360f);
+        if (CanSpin == true)
+        {
+
+            if (ValueNeeded == true)
+            {
+                //MyY = transform.rotation.y;
+                Direction = UnityEngine.Random.Range(0, 2) * 2 - 1;
+                RotateValue = Convert.ToInt32((UnityEngine.Random.Range(-360f, 360f)) * Direction);
+                //MyY = RotateValue + MyY;
+                ValueNeeded = false;
+            }
+
+            transform.Rotate(new Vector3(0, 0, RotateValue * Time.deltaTime));
+            yield return new WaitForSeconds(3f);
+            ValueNeeded = true;
+            StartCoroutine(Fly(Balloon));
+        }
+        /*rotationSpeed = UnityEngine.Random.Range(-360f, 360f);
         transform.Rotate(new Vector3(0, 0, rotationTime * Time.deltaTime));
         yield return new WaitForSeconds(1f);
-        rotationSpeed = -rotationSpeed;
+        rotationSpeed = rotationSpeed * -1;
         yield return new WaitForSeconds(1f);
-        StartCoroutine(Fly(Balloon));
+        StartCoroutine(Fly(Balloon));*/
         }
     
 }
