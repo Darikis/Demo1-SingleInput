@@ -4,17 +4,47 @@ using UnityEngine;
 
 public class FollowBalloon : MonoBehaviour {
     public Transform Target;
+    public float TargetY;
+    public Transform Camera;
     public float CameraY;
-    public GameObject Camera;
+    public float Speed;
+    public Vector3 newYPos;
+    public bool Follow;
+    
 	// Use this for initialization
 	void Start () {
         //Camera = gameObject.transform.position;
-        CameraY = transform.position.y;
 
+        Follow = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        CameraY = Target.transform.position.y;
+        CameraY = Camera.position.y;
+        TargetY = Target.position.y;
+        Speed = ((TargetY - CameraY)*2) * Time.deltaTime;
+        newYPos = new Vector3(0, TargetY, -10);
+        
 	}
+    public void OnTriggerEnter2D(Collider2D Other)
+    {
+        Debug.Log("Hit");
+
+        Follow = true;
+    }
+    public void OnTriggerStay2D(Collider2D Other)
+    {
+        Debug.Log("Still Here");
+
+        if (Follow == true)
+        {
+            Camera.transform.position = Vector3.MoveTowards(Camera.position, newYPos, Speed);
+        }
+    }
+    public void OnTriggerExit2D(Collider2D Other)
+    {
+        Debug.Log("Hit");
+
+        Follow = false;
+    }
 }
