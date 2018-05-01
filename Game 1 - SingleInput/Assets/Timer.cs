@@ -28,7 +28,7 @@ public class Timer : MonoBehaviour {
             StartCount = false;
         }
 
-        CountDownText.text = ("Time Left - " + timeleft);
+        CountDownText.text = (" " + timeleft + " ");
 
         if(timeleft <= 0)
         {

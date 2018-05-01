@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game 1 - SingleInput.Plugins", "Game 1 - SingleInput.Plugins.csproj", "{CCA0C7BD-AE90-13B0-EACB-659BC63EF973}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game 1 - SingleInput", "Game 1 - SingleInput.csproj", "{CC06AA5B-DA1D-BE16-F933-CECA14302825}"
