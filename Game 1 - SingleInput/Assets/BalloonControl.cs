@@ -22,6 +22,7 @@ public class BalloonControl : MonoBehaviour {
     public bool GameOver;
     public bool CanSpin;
     public bool TimesUp;
+    //public ParticleSystem Particle;
 
 
 
@@ -33,6 +34,8 @@ public class BalloonControl : MonoBehaviour {
         Launch = false;
         TimesUp = false;
         GameOver = false;
+        
+        
         //StartCoroutine(Points());
     }
 
@@ -41,10 +44,7 @@ public class BalloonControl : MonoBehaviour {
     {
 
         //transform.position += transform.up * movementSpeed * Time.deltaTime;
-
-        
-       
-        Vector3 Size = new Vector3(Width, Height, 1f);
+            Vector3 Size = new Vector3(Width, Height, 1f);
         transform.localScale = Size;
         if (Input.GetKeyDown("space") && Launch == false && GameOver == false)
         {
@@ -56,29 +56,30 @@ public class BalloonControl : MonoBehaviour {
         }
         if (Input.GetKeyDown("h"))
         {
-            Rigid.AddRelativeForce(transform.up * Thrust);
+            Rigid.AddRelativeForce(transform.right * Thrust);
             Launch = true;
             StartCoroutine(Fly(Balloon));
             CanSpin = true;
         }
         if (TimesUp == true && GameOver == false)
         {
-            Rigid.AddRelativeForce(transform.up * Thrust);
+            Rigid.AddRelativeForce(transform.right * Thrust);
             Launch = true;
             StartCoroutine(Fly(Balloon));
             CanSpin = true;
+            //Particle.Play();
         }
 
         if (Input.GetKeyDown("space") && Launch == true && GameOver == false)
         {
             StopAllCoroutines();
             Rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
-            Rigid.AddForce(transform.up * Thrust * 10);
-            Thrust = Thrust - 3f;
+            Rigid.AddRelativeForce(transform.right * Thrust * 15);
+            Thrust = Thrust - 1.2f;
             ValueNeeded = true;
             CanSpin = false;
-            Width = Width - 0.04f;
-            Height = Height - 0.04f;
+            Width = Width - 0.01f;
+            Height = Height - 0.01f;
         }
         if (Input.GetKeyUp("space") && Launch == true && GameOver == false)
         {
@@ -91,12 +92,14 @@ public class BalloonControl : MonoBehaviour {
     {
         if (Launch == true && Thrust > 1 && GameOver == false)
         {
-            Rigid.AddRelativeForce(transform.up * Thrust);
+            Rigid.AddRelativeForce(transform.right * Thrust);
             //Thrust = Thrust - .05f;
             StartCoroutine(Fly(Balloon));
-            Width = Width - 0.01f;
-            Height = Height - 0.01f;
-            Thrust = Thrust - 1f;
+            Width = Width - 0.005f;
+            Height = Height - 0.005f;
+            Thrust = Thrust - .75f;
+            Debug.Log("GOOOOOOD");
+            
 
         }
         if (Launch == true && Thrust < .5 && GameOver == false)
@@ -106,6 +109,7 @@ public class BalloonControl : MonoBehaviour {
             StopAllCoroutines();
             Launch = false;
             GameOver = true;
+            
         }
     }
         IEnumerator Fly (Transform Balloon)
@@ -123,7 +127,7 @@ public class BalloonControl : MonoBehaviour {
             }
 
             transform.Rotate(new Vector3(0, 0, RotateValue * Time.deltaTime));
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
             ValueNeeded = true;
             StartCoroutine(Fly(Balloon));
         }

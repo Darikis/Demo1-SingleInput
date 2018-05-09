@@ -7,7 +7,7 @@ public class WallSpawning : MonoBehaviour {
     public bool Spawn;
     public bool Despawn;
     public Transform Wall;
-    public float CurrentY;
+    public float CurrentX;
     public GameObject Victim;
     
 
@@ -17,7 +17,7 @@ public class WallSpawning : MonoBehaviour {
 	}
     void Awake()
     {
-        CurrentY = Wall.position.y;
+        CurrentX = Wall.position.x;
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class WallSpawning : MonoBehaviour {
         if (Spawn == true)
         {
             Debug.Log("Spawn");
-            Instantiate(Wall, new Vector3(0, (CurrentY + 20), 0), Quaternion.identity);
+            Instantiate(Wall, new Vector3((CurrentX + 20), 0, 0.5f), Quaternion.identity);
             /*for (int y = 0; y < 5; y++)
             {
                 for (int x = 0; x < 5; x++)

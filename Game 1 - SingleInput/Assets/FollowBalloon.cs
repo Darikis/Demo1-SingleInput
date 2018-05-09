@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FollowBalloon : MonoBehaviour {
     public Transform Target;
-    public float TargetY;
+    public float TargetX;
     public Transform Camera;
-    public float CameraY;
+    public float CameraX;
     public float Speed;
     public Vector3 newYPos;
     public bool Follow;
@@ -20,10 +20,10 @@ public class FollowBalloon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        CameraY = Camera.position.y;
-        TargetY = Target.position.y;
-        Speed = ((TargetY - CameraY)*2) * Time.deltaTime;
-        newYPos = new Vector3(0, TargetY, -10);
+        CameraX = Camera.position.x;
+        TargetX = Target.position.x;
+        Speed = ((TargetX - CameraX)*2) * Time.deltaTime;
+        newYPos = new Vector3(TargetX, 0, -10);
         
 	}
     public void OnTriggerEnter2D(Collider2D Other)
